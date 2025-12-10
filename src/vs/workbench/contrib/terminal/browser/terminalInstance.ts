@@ -1990,7 +1990,8 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 	}
 
 	private _restorePrimaryShellTypeAfterNestedProcessExit(): void {
-		if (this._shellType === GeneralShellType.Python && this._primaryShellType && this._primaryShellType !== GeneralShellType.Python) {
+		// Restore the primary shell type when exiting any nested shell like python
+		if (this._primaryShellType && this._primaryShellType !== this._shellType) {
 			this.setShellType(this._primaryShellType);
 		}
 	}
@@ -2000,9 +2001,9 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 			return;
 		}
 
-		// Remember the most recent non-Python shell type so we can fall back to it after exiting
-		// a nested Python REPL (for example after running `python` from zsh or bash).
-		if (shellType && shellType !== GeneralShellType.Python) {
+		// Remember the shell type when not in a nested process state so we can fall back to it
+		// after exiting nested shells (e.g., running `python` from zsh or bash).
+		if (shellType && !this.hasChildProcesses) {
 			this._primaryShellType = shellType;
 		}
 		this._shellType = shellType;
