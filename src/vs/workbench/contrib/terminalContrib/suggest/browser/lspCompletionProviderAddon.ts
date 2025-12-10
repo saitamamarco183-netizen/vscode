@@ -13,14 +13,12 @@ import { Position } from '../../../../../editor/common/core/position.js';
 import { CompletionItemLabel, CompletionItemProvider, CompletionTriggerKind } from '../../../../../editor/common/languages.js';
 import { LspTerminalModelContentProvider } from './lspTerminalModelContentProvider.js';
 import { MarkdownString } from '../../../../../base/common/htmlContent.js';
-import { TerminalShellType } from '../../../../../platform/terminal/common/terminal.js';
 
 export class LspCompletionProviderAddon extends Disposable implements ITerminalAddon, ITerminalCompletionProvider {
 	// We only load lspCompletionAddon for supported list of shellType, language objects in defined in `terminalLspSupportedLanguages`
 	readonly id = 'lsp';
 	readonly isBuiltin = true;
 	readonly triggerCharacters?: string[];
-	readonly shellTypes?: TerminalShellType[];
 	private _provider: CompletionItemProvider;
 	private _textVirtualModel: IReference<IResolvedTextEditorModel>;
 	private _lspTerminalModelContentProvider: LspTerminalModelContentProvider;
@@ -29,14 +27,12 @@ export class LspCompletionProviderAddon extends Disposable implements ITerminalA
 		provider: CompletionItemProvider,
 		textVirtualModel: IReference<IResolvedTextEditorModel>,
 		lspTerminalModelContentProvider: LspTerminalModelContentProvider,
-		shellType: TerminalShellType,
 	) {
 		super();
 		this._provider = provider;
 		this._textVirtualModel = textVirtualModel;
 		this._lspTerminalModelContentProvider = lspTerminalModelContentProvider;
 		this.triggerCharacters = provider.triggerCharacters ? [...provider.triggerCharacters, ' ', '('] : [' ', '('];
-		this.shellTypes = [shellType];
 	}
 
 	activate(terminal: Terminal): void {

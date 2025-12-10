@@ -133,7 +133,7 @@ class TerminalSuggestContribution extends DisposableStore implements ITerminalCo
 
 		// Iterate through all available providers
 		for (const provider of filteredProviders) {
-			const lspCompletionProviderAddon = this._instantiationService.createInstance(LspCompletionProviderAddon, provider, textVirtualModel, this._lspModelProvider.value, this._ctx.instance.shellType);
+			const lspCompletionProviderAddon = this._instantiationService.createInstance(LspCompletionProviderAddon, provider, textVirtualModel, this._lspModelProvider.value);
 			this._lspAddons.set(provider._debugDisplayName, lspCompletionProviderAddon);
 			xterm.loadAddon(lspCompletionProviderAddon);
 			this.add(this._terminalCompletionService.registerTerminalCompletionProvider(
