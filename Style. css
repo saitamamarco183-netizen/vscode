@@ -1,0 +1,51 @@
+/* Réinitialisation de base */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f9; /* Un arrière-plan très clair */
+    color: #333;
+}
+
+/* Style de l'En-tête (Header) */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+}
+
+/* Style de la Navigation (Nav) - Utilisation de Flexbox pour l'alignement */
+nav {
+    display: flex;
+    justify-content: space-between; /* Espacer le titre et les liens */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex; /* Alignement horizontal des liens */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px 10px;
+}
+
+/* Style des Sections */
+section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#accueil {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
