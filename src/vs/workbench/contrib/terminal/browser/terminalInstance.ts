@@ -1508,7 +1508,7 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 		this._register(processManager.onEnvironmentVariableInfoChanged(e => this._onEnvironmentVariableInfoChanged(e)));
 		this._register(this.onDidChangeHasChildProcesses(hasChildProcesses => {
 			if (!hasChildProcesses) {
-				this._restorePrimaryShellTypeAfterNestedProcessExit();
+				this._restorePrimaryShellType();
 			}
 		}));
 		this._register(processManager.onPtyDisconnect(() => {
@@ -1989,8 +1989,8 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 		await this._processManager.setDimensions(rawXterm.cols, rawXterm.rows);
 	}
 
-	private _restorePrimaryShellTypeAfterNestedProcessExit(): void {
-		// Restore the primary shell type when exiting any nested shell like python
+	// Restore the primary shell type when exiting from any child/nested shell like python.
+	private _restorePrimaryShellType(): void {
 		if (this._primaryShellType && this._primaryShellType !== this._shellType) {
 			this.setShellType(this._primaryShellType);
 		}
@@ -2001,8 +2001,7 @@ export class TerminalInstance extends Disposable implements ITerminalInstance {
 			return;
 		}
 
-		// Remember the shell type when not in a nested process state so we can fall back to it
-		// after exiting nested shells (e.g., running `python` from zsh or bash).
+		// Cache shell type to restore when child/nested shell exits.
 		if (shellType && !this.hasChildProcesses) {
 			this._primaryShellType = shellType;
 		}
