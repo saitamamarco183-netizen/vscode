@@ -16,6 +16,7 @@ import { MarkdownString } from '../../../../../base/common/htmlContent.js';
 import { TerminalShellType } from '../../../../../platform/terminal/common/terminal.js';
 
 export class LspCompletionProviderAddon extends Disposable implements ITerminalAddon, ITerminalCompletionProvider {
+	// We only load lspCompletionAddon for supported list of shellType, language objects in defined in `terminalLspSupportedLanguages`
 	readonly id = 'lsp';
 	readonly isBuiltin = true;
 	readonly triggerCharacters?: string[];

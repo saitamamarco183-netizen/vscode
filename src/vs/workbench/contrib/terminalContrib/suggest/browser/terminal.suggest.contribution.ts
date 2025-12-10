@@ -113,6 +113,7 @@ class TerminalSuggestContribution extends DisposableStore implements ITerminalCo
 
 	private async _loadLspCompletionAddon(xterm: RawXtermTerminal): Promise<void> {
 		let lspTerminalObj = undefined;
+		// Only load lspCompletionAddon for supported list of shellType, language objects in defined in `terminalLspSupportedLanguages`
 		if (!this._ctx.instance.shellType || !(lspTerminalObj = getTerminalLspSupportedLanguageObj(this._ctx.instance.shellType))) {
 			this._lspAddons.clearAndDisposeAll();
 			return;
